@@ -13,10 +13,14 @@ cd kafka-docker
 
 
 // Edit docker-compose.yml
+
 // 1. Change the docker host IP in KAFKA_ADVERTISED_HOST_NAME
+
 // On macOS use the following script to set DOCKERHOST env var
+
 // DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)
-// https://github.com/wurstmeister/kafka-docker/issues/17#issuecomment-370237590
+
+
 
 
 
@@ -32,6 +36,7 @@ ifconfig
 
 
 // Start services based on the default docker-compose.yml
+
 // You may want to use -d to detach from the terminal (daemon mode)
 
 docker-compose up
@@ -41,8 +46,6 @@ docker-compose up
 
 
 // Connect to the container of the Kafka broker
-// NOTE: Asciidoc would try to substitute curly braces
-//       Remove the spaces between curly braces
 
 docker-compose ps
 
@@ -51,6 +54,7 @@ docker-compose ps
 
 
 // Print out the topics
+
 // You should see no topics listed
 
 docker exec -t kafka-docker_kafka_1 kafka-topics.sh --bootstrap-server :9092 --list
@@ -68,6 +72,7 @@ docker exec -t kafka-docker_kafka_1 kafka-topics.sh --bootstrap-server :9092 --c
 
 
 // Describe topic t1
+
 docker exec -t kafka-docker_kafka_1 kafka-topics.sh --bootstrap-server :9092 --describe --topic t1
 
 
@@ -91,11 +96,13 @@ docker exec -it kafka-docker_kafka_1 kafka-console-producer.sh --broker-list :90
 
 
 // Type a message in producer window to see the message printed out in consumer's
+
 // Observe the logs of the running docker-compose up (with no -d)
+
 // Or use docker logs -f kafka-docker_kafka_1
 
 // Ctrl-C to shut down all the processes
 
-// You may also consider removing the containers
-// so you always start afresh
-// docker-compose rm
+// You may also consider removing the containers so you always start afresh
+
+docker-compose rm
